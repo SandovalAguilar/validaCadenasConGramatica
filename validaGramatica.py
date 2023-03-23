@@ -46,10 +46,10 @@ def inicialesInversa(inicialesApellidos):
 def primerNombre(nombreCompleto):
     return nombreCompleto.split(' ')[0]
 
-def analizaCadenas():
-    patron = re.compile('\A(0123456)(gc)+(0123456)((cg){2})+((yozedhyozedh)\Z)')
-    patrongm = re.compile('\A(0123456)(gc)+(0123456)')
-    patronmg = re.compile('(0123456)((cg){2})*((yozedhyozedh)\Z)')
+def analizaCadenas(inicialesApellidos, inicialesInversa, matricula, primerNombre):
+    patron = re.compile('\A(' + matricula + ')(' + inicialesApellidos + ')+(' + matricula + ')((' + inicialesInversa + '){2})+((' + primerNombre * 2 + ')\Z)')    
+    patrongm = re.compile('\A(' + matricula + ')(' + inicialesApellidos + ')+(' + matricula + ')')
+    patronmg = re.compile('(' + matricula + ')((' + inicialesInversa + '){2})*((' + primerNombre * 2 + ')\Z)')
     cadena = input("\nTeclea una cadena= ")
     encocadena= patron.search(cadena)
     encols= str(patrongm.match(cadena))
@@ -78,8 +78,11 @@ def imprimeConjuntos(nombre, matricula, apellidos):
 
 # Programa principal
 def main():
-    imprimeConjuntos(nombrePredeterminado, matriculaPredeterminada, apellidos = "Guerrero Ceja")
-    
+    analizaCadenas(inicialesApellidos= 'gc',
+                   inicialesInversa = 'cg',
+                   matricula = '0123456',
+                   primerNombre = 'yozedh')
+
 if __name__=="__main__":
     main()
 
