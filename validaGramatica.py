@@ -13,8 +13,9 @@ from itertools import count
 
 # Variables Globales
 '''
-nombrePredeterminado = "Alejandro Isai Avila"
-matriculaPredeterminada = "1943548"
+nombresPredeterminados = "Mauricio Leonardo"
+apellidosPredeterminados = "Ponce Barragan"
+matriculaPredeterminada = "2003929"
 '''
 
 # Variables Globales de prueba
@@ -38,40 +39,60 @@ def generaInicialesInversa(inicialesApellidos):
 def encuentraPrimerNombre(nombreCompleto):
     return nombreCompleto.split(' ')[0]
 
-def validaCadenas(inicialesApellidos, inicialesInversa, matricula, primerNombre):
+def validaCadenas(inicialesApellidos, inicialesInversa, matricula, primerNombre, cadena):
     patron = re.compile('\A(' + matricula + ')(' + inicialesApellidos + ')+(' + matricula + ')((' + inicialesInversa + '){2})+((' + primerNombre * 2 + ')\Z)')    
-    patrongm = re.compile('\A(' + matricula + ')(' + inicialesApellidos + ')+(' + matricula + ')')
-    patronmg = re.compile('(' + matricula + ')((' + inicialesInversa + '){2})*((' + primerNombre * 2 + ')\Z)')
-    cadena = input("\nTeclea una cadena= ")
+    patronIniciales = re.compile('\A(' + matricula + ')(' + inicialesApellidos + ')+(' + matricula + ')')
+    patronInicialesInversa = re.compile('(' + matricula + ')((' + inicialesInversa + '){2})*((' + primerNombre * 2 + ')\Z)')
     encocadena= patron.search(cadena)
-    encols= str(patrongm.match(cadena))
-    encosl= str(patronmg.search(cadena))
+    matchIniciales = str(patronIniciales.match(cadena))
+    matchInicialesInversa= str(patronInicialesInversa.search(cadena))
 
-    contarls= encols.count(inicialesApellidos)
-    contarsl= encosl.count(inicialesInversa)
+    contarIniciales = matchIniciales.count(inicialesApellidos)
+    contarInicialesInversa= matchInicialesInversa.count(inicialesInversa)
 
-    if (contarls >= 1) and (encocadena != None) and ( contarsl >= 1) and (contarls*2 == contarsl):
-        print("\nCadena válida")
+    if (contarIniciales >= 1) and (encocadena != None) and (contarInicialesInversa >= 1) and (contarIniciales * 2 == contarInicialesInversa):
+        print("La cadena es valida.")
     else:
-        print("\nCádena inválida")
+        print("La cadena es invalida.")
 
 # Programa principal
 def main():
-    
+    os.system('cls||clear')
     inicialesApellidos = generaIniciales(apellidosPredeterminados)
     inicialesInversa = generaInicialesInversa(inicialesApellidos)
     matricula = matriculaPredeterminada
     primerNombre = encuentraPrimerNombre(nombresPredeterminados).lower()
+    
+    centinela = True
 
-    print(inicialesApellidos,
-          inicialesInversa,
-          matricula,
-          primerNombre)
- 
-    validaCadenas(inicialesApellidos,
-                   inicialesInversa,
-                   matricula,
-                   primerNombre)
+    while(centinela):
+        print("====== Teoria de Automatas: Evidencia II ======")
+        print("======            Equipo III             ======")
+        print("\n")
+        print("Nombre completo: " + nombresPredeterminados + apellidosPredeterminados)
+        print("Matricula: " + matriculaPredeterminada)
+        print("-----------------------------------------------")
+        print("Ingrese una cadena para ser validada:")
+
+        cadena = input()
+
+        print("-----------------------------------------------")
+        validaCadenas(inicialesApellidos,
+                      inicialesInversa,
+                      matricula,
+                      primerNombre,
+                      cadena)
+        print("-----------------------------------------------")
+        
+        print("¿Desea ingresar otra cadena? [S/N]:")
+        opcion = input()
+        if opcion.upper() == 'S':
+            centinela = True
+        elif opcion.upper() == 'N':
+            centinela = False
+        else:
+            print("Opcion incorrecta. Ingrese una opcion valida.")
+            input("Presione cualquier tecla para continuar...")
 
 if __name__=="__main__":
     main()
