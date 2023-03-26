@@ -12,16 +12,16 @@ import os
 from itertools import count
 
 # Variables Globales
-'''
 nombresPredeterminados = "Mauricio Leonardo"
 apellidosPredeterminados = "Ponce Barragan"
 matriculaPredeterminada = "2003929"
-'''
 
 # Variables Globales de prueba
+'''
 nombresPredeterminados = "Yozedh Jahday"
 apellidosPredeterminados = "Guerrero Ceja"
 matriculaPredeterminada = "0123456"
+'''
 
 # Funciones para generar conjuntos e iniciales
 def generaIniciales(apellidos):
@@ -43,21 +43,20 @@ def validaCadenas(inicialesApellidos, inicialesInversa, matricula, primerNombre,
     patron = re.compile('\A(' + matricula + ')(' + inicialesApellidos + ')+(' + matricula + ')((' + inicialesInversa + '){2})+((' + primerNombre * 2 + ')\Z)')    
     patronIniciales = re.compile('\A(' + matricula + ')(' + inicialesApellidos + ')+(' + matricula + ')')
     patronInicialesInversa = re.compile('(' + matricula + ')((' + inicialesInversa + '){2})*((' + primerNombre * 2 + ')\Z)')
-    encocadena= patron.search(cadena)
+    buscaCadena = patron.search(cadena)
     matchIniciales = str(patronIniciales.match(cadena))
-    matchInicialesInversa= str(patronInicialesInversa.search(cadena))
+    matchInicialesInversa = str(patronInicialesInversa.search(cadena))
 
     contarIniciales = matchIniciales.count(inicialesApellidos)
-    contarInicialesInversa= matchInicialesInversa.count(inicialesInversa)
+    contarInicialesInversa = matchInicialesInversa.count(inicialesInversa)
 
-    if (contarIniciales >= 1) and (encocadena != None) and (contarInicialesInversa >= 1) and (contarIniciales * 2 == contarInicialesInversa):
+    if (contarIniciales >= 1) and (buscaCadena != None) and (contarInicialesInversa >= 1) and (contarIniciales * 2 == contarInicialesInversa):
         print("La cadena es valida.")
     else:
         print("La cadena es invalida.")
 
 # Programa principal
 def main():
-    os.system('cls||clear')
     inicialesApellidos = generaIniciales(apellidosPredeterminados)
     inicialesInversa = generaInicialesInversa(inicialesApellidos)
     matricula = matriculaPredeterminada
@@ -66,23 +65,30 @@ def main():
     centinela = True
 
     while(centinela):
-        print("====== Teoria de Automatas: Evidencia II ======")
-        print("======            Equipo III             ======")
-        print("\n")
-        print("Nombre completo: " + nombresPredeterminados + apellidosPredeterminados)
+        os.system('cls||clear')
+
+        print("======   Teoria de Automatas: Evidencia II   ======")
+        print("======               Equipo III              ======")
+        print("---------------------------------------------------")
+        print("Nombre completo: " + nombresPredeterminados + " " + apellidosPredeterminados)
         print("Matricula: " + matriculaPredeterminada)
-        print("-----------------------------------------------")
+        print("Gramatica: L = { i (w)^n i (w ^ I)^(2n) j^2 }")
+        print("w = " + inicialesApellidos)
+        print("i = " + matriculaPredeterminada)
+        print("w^I = " + inicialesInversa)
+        print("j = " + primerNombre)
+        print("---------------------------------------------------")
         print("Ingrese una cadena para ser validada:")
 
         cadena = input()
 
-        print("-----------------------------------------------")
+        print("---------------------------------------------------")
         validaCadenas(inicialesApellidos,
                       inicialesInversa,
                       matricula,
                       primerNombre,
                       cadena)
-        print("-----------------------------------------------")
+        print("---------------------------------------------------")
         
         print("¿Desea ingresar otra cadena? [S/N]:")
         opcion = input()
